@@ -113,10 +113,10 @@ namespace AccesoDatos
             SqlCommand comando = new SqlCommand();
             comando.Connection = cnn;
             SqlDataReader datos;
-            string sentencia = "Select id, descripcion, cantidad, precio from Productos";
+            string sentencia = "Select id, descripcion, cantidad, precio from Productos WHERE borrado = 0";
             if (!string.IsNullOrEmpty(condicion))
             {
-                sentencia = $"{sentencia} where {condicion}";
+                sentencia = $"{sentencia} and {condicion}";
             }
             comando.CommandText = sentencia;
                 try
@@ -151,10 +151,10 @@ namespace AccesoDatos
             SqlDataAdapter adapter;
 
             List<Producto> productos = new List<Producto>();
-            string sentencia = "Select id, descripcion,cantidad, precio from Productos";
+            string sentencia = "Select id, descripcion,cantidad, precio from Productos WHERE BORRADO = 0";
             if (!string.IsNullOrEmpty(condicion))
             {
-                sentencia = $"{sentencia} where {condicion}";
+                sentencia = $"{sentencia} and {condicion}";
             }
             try
             {
@@ -180,6 +180,45 @@ namespace AccesoDatos
             }
            
             return productos;
+        }
+
+        public bool Eliminar(int id, bool tipo)
+        {
+            bool resultado = false;
+            SqlConnection cnn = new SqlConnection(_cademaConexion);
+            SqlCommand comando = new SqlCommand();
+            string sentencia;
+            comando.Connection = cnn;
+
+            if (tipo)//borrad fisico
+            {
+                sentencia = "DelEte Productos where id=@id";
+                //sentencia = $"Delate Productos where id={id}";
+            }
+            else
+            {
+                sentencia = "Update Productos set Borrado = 1 where id=@Id";
+            }
+            comando.CommandText = sentencia;
+            comando.Parameters.AddWithValue("@Id", id);
+
+            try
+            {
+                cnn.Open();
+                if (comando.ExecuteNonQuery() > 0)
+                {
+                    resultado = true;
+                }
+                cnn.Close();
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+
+
+            return resultado;
         }
     }
 }

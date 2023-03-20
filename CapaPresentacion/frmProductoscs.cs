@@ -13,7 +13,13 @@ using LogicaCapas;
 namespace CapaPresentacion
 {
     public partial class frmProductoscs : Form
+ 
     {
+        //Variable  global que crea la instancia de la entidad que se desea buscar
+        private Producto buscarProducto = new Producto();
+        private static frmBuscarProducto frmBuscarProducto;
+
+
         private Producto EntidadBuscada = new Producto();
         public frmProductoscs()
         {
@@ -194,11 +200,59 @@ namespace CapaPresentacion
                     txtPrecio.Text = producto.Precio.ToString();
                     EntidadBuscada = producto;
                 }
+                else
+                {
+                    MessageBox.Show("Imposible cargar los datos ya que el producto ha tenido cambios", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             catch (Exception e)
             {
 
                 throw e;
+            }
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            frmBuscarProducto = new frmBuscarProducto ();
+            frmBuscarProducto.Aceptar += new EventHandler(Aceptar);
+            frmBuscarProducto.Show();
+        }
+
+        private void Aceptar(object Id, EventArgs e)
+        {
+            try
+            {
+                int id_producto = (int) Id;
+                if (id_producto > -1)
+                {
+                    BuscarProducto(id_producto);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            LN_Producto logica = new LN_Producto(Configuracion.getConnectionString);
+            try
+            {
+                if (!string.IsNullOrEmpty(txtID.Text))
+                {
+                    logica.Eliminar(Convert.ToInt32(txtID.Text));
+                    MessageBox.Show("Operación realizada satisfactoriamente", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    limpiar();
+                    CargarProductos();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
