@@ -31,5 +31,42 @@ namespace LogicaCapas
 
             return resultado;
         }
-    }
+
+        //llama a obtener detalle en Ad detalle
+        public Detalle ObtenerDetalle(string condicion = "")
+        {
+            Detalle resultado;
+            AD_Detalle AccesoDatos = new AD_Detalle(_cadenaConexion);
+
+            try
+            {
+                resultado = AccesoDatos.ObtenerDetalle(condicion);
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+
+            return resultado;
+        }
+
+        public bool Eliminar(int id)
+        {
+            bool resultado;
+            AD_Detalle AccesoDatos = new AD_Detalle(_cadenaConexion);
+
+            try
+            {
+                resultado = AccesoDatos.Eliminar(id);
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+            return resultado;
+
+        }
+    }   
 }

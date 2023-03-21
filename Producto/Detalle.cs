@@ -13,6 +13,7 @@ namespace Entidad
         private decimal precioVenta;
         private decimal subtotal;
         private string descripcion;
+        private bool existe;
 
 
         public int Id { 
@@ -42,6 +43,12 @@ namespace Entidad
         public string Descripcion { 
             get => descripcion; 
             set => descripcion = value; 
+        }
+
+        public bool Existe
+        {
+            get => existe;
+            set => existe = value;
         }
 
         public Detalle()
