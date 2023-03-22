@@ -38,12 +38,12 @@ namespace AccesoDatos
             try
             {
                 cmd.Transaction = trans;
-                busqueda = ObtenerVenta($"id= {venta.Id}");
+                busqueda = ObtenerVenta($"v.id= {venta.Id}");
                 if (!busqueda.Existe)
                 {
                     //abro 
 
-                    sentencia = "Insert into Vnetas(fecha,tipo,clienteId,estado) values (@fecha,@tipo,@clienteId,@estado) select SCOPE_IDENTITY()";
+                    sentencia = "Insert into Ventas(fecha,tipo,clienteId,estado) values (@fecha,@tipo,@clienteId,@estado) select SCOPE_IDENTITY()";
                     //Se le asigna al command
                     cmd.CommandText = sentencia;
                     cmd.Parameters.AddWithValue("@fecha", venta.Fecha);
@@ -62,10 +62,12 @@ namespace AccesoDatos
                     cmd.Parameters.AddWithValue("@precioventa", detalle.PrecioVenta);
                     cmd.ExecuteNonQuery();
                     trans.Commit();
+
+                    resultado = 1; //inserto venta y detalle
                 }
                 else
                 {
-                    if (busqueda.Estado == "Pendiente")
+                    if (busqueda.Estado.ToUpper().Trim() == "PENDIENTE")
                     {
                         sentencia = "Update Ventas set clienteId=@clienteId, Tipo=@tipo where id=@Id";
                         //Se le asigna al command
@@ -86,7 +88,10 @@ namespace AccesoDatos
                             cmd.Parameters.AddWithValue("@productoId", detalle.ProductoId);
                             cmd.Parameters.AddWithValue("@cantidad", detalle.Cantidad);
                             cmd.Parameters.AddWithValue("@precioventa", detalle.PrecioVenta);
+                            cmd.Parameters.AddWithValue("@Id", detalle.Id);
                             cmd.ExecuteNonQuery();
+
+                            resultado = 2; //actualizoventa y detalle
                         }
                         else
                         {
@@ -99,8 +104,14 @@ namespace AccesoDatos
                             cmd.Parameters.AddWithValue("@cantidad", detalle.Cantidad);
                             cmd.Parameters.AddWithValue("@precioventa", detalle.PrecioVenta);
                             cmd.ExecuteNonQuery();
+
+                            resultado = 3; //actualizo venta e inserto detalle
                         }
-                       
+
+                    }
+                    else
+                    {
+                        resultado = 4; //no se puede actualizar porque la venta esta cancelada
                     }
                     trans.Commit();
 
@@ -137,20 +148,24 @@ namespace AccesoDatos
                 //ling lenguaje de c# para manejo de consultas
                 //Permite hacer consulta a una serie de datos de un contenedor
                 //Por cada data row que tenga en el registro 
-                venta = (from DataRow registro in datos.Tables[0].Rows
-                         select new Venta()
-                         {
-                             Id = Convert.ToInt32(registro[0]), //tambien se puede poner el nombre de la tabla
-                             ClienteId = Convert.ToInt32(registro[1]),
-                             NombreCliente = registro[2].ToString(),
-                             Fecha = Convert.ToDateTime(registro[3]),
-                             Tipo = registro[4].ToString(),
-                             Estado = registro[5].ToString(),
-                             Existe = true
+                if (datos.Tables[0].Rows.Count > 0)
+                {
+                    venta = (from DataRow registro in datos.Tables[0].Rows
+                             select new Venta()
+                             {
+                                 Id = Convert.ToInt32(registro[0]), //tambien se puede poner el nombre de la tabla
+                                 ClienteId = Convert.ToInt32(registro[1]),
+                                 NombreCliente = registro[2].ToString(),
+                                 Fecha = Convert.ToDateTime(registro[3]),
+                                 Tipo = registro[4].ToString(),
+                                 Estado = registro[5].ToString(),
+                                 Existe = true
 
 
-                         }
+                             }
                              ).FirstOrDefault();
+                }
+                
             }
             catch (Exception e)
             {

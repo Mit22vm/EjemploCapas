@@ -65,7 +65,7 @@ namespace CapaPresentacion
             // mnuProductos
             // 
             this.mnuProductos.Name = "mnuProductos";
-            this.mnuProductos.Size = new System.Drawing.Size(224, 26);
+            this.mnuProductos.Size = new System.Drawing.Size(158, 26);
             this.mnuProductos.Text = "Productos";
             this.mnuProductos.Click += new System.EventHandler(this.mnuProductos_Click);
             // 
@@ -80,8 +80,9 @@ namespace CapaPresentacion
             // mnuVentas
             // 
             this.mnuVentas.Name = "mnuVentas";
-            this.mnuVentas.Size = new System.Drawing.Size(135, 26);
+            this.mnuVentas.Size = new System.Drawing.Size(224, 26);
             this.mnuVentas.Text = "Ventas";
+            this.mnuVentas.Click += new System.EventHandler(this.mnuVentas_Click);
             // 
             // ayudaToolStripMenuItem
             // 

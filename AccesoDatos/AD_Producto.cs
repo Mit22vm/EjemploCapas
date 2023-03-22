@@ -9,12 +9,12 @@ namespace AccesoDatos
 {
     public class AD_Producto
     {
-        private string _cademaConexion;
+        private string _cadenaConexion;
         private int id_Producto;
 
         public AD_Producto(string cadenaConexion)
         {
-            _cademaConexion = cadenaConexion;
+            _cadenaConexion = cadenaConexion;
         }
 
         public int Id_Producto { 
@@ -33,7 +33,7 @@ namespace AccesoDatos
             
             int resultado = 1;
             //variables
-            SqlConnection conexion = new SqlConnection(_cademaConexion);
+            SqlConnection conexion = new SqlConnection(_cadenaConexion);
             SqlCommand comando = new SqlCommand();
             comando.Connection = conexion;//Dice la conexion que utiliza
             string sentencia;
@@ -70,7 +70,7 @@ namespace AccesoDatos
         public int InsertarModificar(Producto producto)
         {
             int resultado = 1;
-            SqlConnection cnn = new SqlConnection(_cademaConexion);
+            SqlConnection cnn = new SqlConnection(_cadenaConexion);
             SqlCommand comando = new SqlCommand(); 
             comando.Connection = cnn;
             string sentencia;
@@ -109,7 +109,7 @@ namespace AccesoDatos
         public Producto ObtenerProducto(string condicion)
         {
             Producto producto = new Producto();
-            SqlConnection cnn = new SqlConnection(_cademaConexion);
+            SqlConnection cnn = new SqlConnection(_cadenaConexion);
             SqlCommand comando = new SqlCommand();
             comando.Connection = cnn;
             SqlDataReader datos;
@@ -147,7 +147,7 @@ namespace AccesoDatos
         public List<Producto> ListarProductos(string condicion="")
         {
             DataSet datos = new DataSet();
-            SqlConnection cnn = new SqlConnection(_cademaConexion);
+            SqlConnection cnn = new SqlConnection(_cadenaConexion);
             SqlDataAdapter adapter;
 
             List<Producto> productos = new List<Producto>();
@@ -185,7 +185,7 @@ namespace AccesoDatos
         public bool Eliminar(int id, bool tipo)
         {
             bool resultado = false;
-            SqlConnection cnn = new SqlConnection(_cademaConexion);
+            SqlConnection cnn = new SqlConnection(_cadenaConexion);
             SqlCommand comando = new SqlCommand();
             string sentencia;
             comando.Connection = cnn;

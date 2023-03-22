@@ -78,19 +78,23 @@ namespace AccesoDatos
                 //ling lenguaje de c# para manejo de consultas
                 //Permite hacer consulta a una serie de datos de un contenedor
                 //Por cada data row que tenga en el registro 
-                detalle = (from DataRow registro in datos.Tables["Detalle"].Rows
-                            select new Detalle()
-                            {
-                                Id = Convert.ToInt32(registro[0]), //tambien se puede poner el nombre de la tabla
-                                VentaId = Convert.ToInt32(registro[1]),
-                                ProductoId = Convert.ToInt32(registro[2]),
-                                Descripcion = registro[3].ToString(),
-                                Cantidad = Convert.ToInt32(registro[4]),
-                                PrecioVenta = Convert.ToDecimal(registro[5]),
-                                Subtotal = Convert.ToDecimal(registro[6])
-
-                            }
-                             ).FirstOrDefault();
+                if (datos.Tables[0].Rows.Count > 0)
+                {
+                    detalle = (from DataRow registro in datos.Tables["Detalle"].Rows
+                               select new Detalle()
+                               {
+                                   Id = Convert.ToInt32(registro[0]), //tambien se puede poner el nombre de la tabla
+                                   VentaId = Convert.ToInt32(registro[1]),
+                                   ProductoId = Convert.ToInt32(registro[2]),
+                                   Descripcion = registro[3].ToString(),
+                                   Cantidad = Convert.ToInt32(registro[4]),
+                                   PrecioVenta = Convert.ToDecimal(registro[5]),
+                                   Subtotal = Convert.ToDecimal(registro[6]),
+                                   Existe=true
+                               }
+                            ).FirstOrDefault();
+                }
+                   
             }
             catch (Exception e)
             {
