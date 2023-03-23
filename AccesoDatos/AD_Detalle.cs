@@ -45,7 +45,8 @@ namespace AccesoDatos
                                  Descripcion = registro[3].ToString(),
                                  Cantidad = Convert.ToInt32(registro[4]),
                                  PrecioVenta = Convert.ToDecimal(registro[5]),
-                                 Subtotal = Convert.ToDecimal(registro[6])
+                                 Subtotal = Convert.ToDecimal(registro[6]),
+                                 Existe = true
                                  
                              }
                              ).ToList();

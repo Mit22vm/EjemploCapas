@@ -56,6 +56,12 @@
     <Compile Include="FormVentas.Designer.cs">
       <DependentUpon>FormVentas.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmBuscarClientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmBuscarClientes.Designer.cs">
+      <DependentUpon>FrmBuscarClientes.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmBuscarProducto.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,6 +84,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormVentas.resx">
       <DependentUpon>FormVentas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmBuscarClientes.resx">
+      <DependentUpon>FrmBuscarClientes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmBuscarProducto.resx">
       <DependentUpon>frmBuscarProducto.cs</DependentUpon>
@@ -142,6 +151,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Close-48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Search-32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

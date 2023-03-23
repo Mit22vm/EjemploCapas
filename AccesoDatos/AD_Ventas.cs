@@ -12,6 +12,13 @@ namespace AccesoDatos
     public class AD_Ventas
     {
         private string _cadenaConexion;
+        private int idVenta;
+
+        public int IdVenta
+        {
+            get
+            { return IdVenta; }
+        }
 
         public AD_Ventas(string cadenaConexion) 
         {
@@ -31,7 +38,7 @@ namespace AccesoDatos
             cmd.Connection = cnn;
             cnn.Open();
             SqlTransaction trans = cnn.BeginTransaction();
-            
+            idVenta = venta.Id;
 
             //para abrir conexion
 

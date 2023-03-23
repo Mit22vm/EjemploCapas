@@ -11,8 +11,14 @@ namespace Entidad
         private string nombre;
         private string apellido;
         private string telefono;
+        private string nombreCompleto;
         private bool existe;
 
+
+        public string NombreCompleto
+        {
+            get =>  $"{nombre} {apellido}";   
+        }
         public int Id { 
             get => id; 
             set => id = value; 

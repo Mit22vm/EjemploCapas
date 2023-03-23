@@ -11,13 +11,21 @@ namespace LogicaCapas
 
         private string _cadenaConexion;
         private string _mensaje;
-
+        private int _idventa;
 
         public string Mensaje { 
             get 
             {
                 return _mensaje;
             
+            }
+        }
+        public int IDVenta
+        {
+            get
+            {
+                return _idventa;
+
             }
         }
 
@@ -62,6 +70,7 @@ namespace LogicaCapas
                     {
                         detalle.PrecioVenta = producto.Precio + (producto.Precio * (decimal)0.35);
                         resultado = ADVentas.Insertar(venta, detalle);
+                        _idventa = ADVentas.IdVenta;
 
                         switch (resultado)
                         {

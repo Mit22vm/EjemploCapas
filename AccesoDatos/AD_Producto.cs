@@ -169,7 +169,8 @@ namespace AccesoDatos
                                  Id = Convert.ToInt32(registro[0]), //tambien se puede poner el nombre de la tabla
                                  Descripcion = registro[1].ToString(),
                                  Cantidad = Convert.ToInt32(registro[2]),
-                                 Precio = Convert.ToDecimal(registro[3])
+                                 Precio = Convert.ToDecimal(registro[3]),
+                                 Existe = true
                              }
                              ).ToList();
             }
